@@ -1,14 +1,14 @@
 .PHONY: build build_bpf build_go build_docker clean run_docker push_docker test
 .DEFAULT_GOAL = build
 
-DEV := ens160
-TAG := v0.0.1-pre
+DEV ?= ens160
+TAG ?= v0.0.1-pre
 
 build_bpf:
 	$(MAKE) -C bpf dilih_kern.o
 
 build_go:
-	CGO_ENABLED=0 go build
+	CGO_ENABLED=0 go build -buildvcs=false
 	
 build_docker:
 	docker build -t=pemcconnell/dilih:$(TAG) .
